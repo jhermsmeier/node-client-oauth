@@ -15,11 +15,11 @@ var example = new OAuth.Client({
   }
 });
 
-example.getRequestToken(function( error, token, response ) {
+example.getRequestToken( null, function( error, token, response ) {
   
   console.log( token );
   
-  example.getAccessToken(function( error, token, response ) {
+  example.getAccessToken( null, function( error, token, response ) {
     
     console.log( token );
     
