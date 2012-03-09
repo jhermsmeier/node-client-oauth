@@ -1,5 +1,7 @@
 # TODO
 
+- add README
+
 - add documentation
 
 - automate the token retrieval further
