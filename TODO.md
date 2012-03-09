@@ -2,6 +2,8 @@
 
 - add README
 
+- add `baseUrl` to options
+
 - add documentation
 
 - automate the token retrieval further
