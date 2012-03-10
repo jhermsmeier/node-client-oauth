@@ -1,5 +1,9 @@
 # TODO
 
+- rework the request and access token retrieval methods
+  (maybe remove them, move responsability for setting the new
+  tokens into userland)
+
 - add usage examples to README
 
 - add documentation
