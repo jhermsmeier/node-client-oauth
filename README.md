@@ -16,6 +16,8 @@
   },
   // Request options
   options: {
+    // API base URL
+    baseUrl: '',
     // Request token URL
     tokenUrl: '',
     // Access token URL
