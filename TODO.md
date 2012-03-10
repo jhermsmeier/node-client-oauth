@@ -1,8 +1,6 @@
 # TODO
 
-- add README
-
-- add `baseUrl` to options
+- add usage examples to README
 
 - add documentation
 

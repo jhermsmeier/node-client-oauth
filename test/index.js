@@ -8,8 +8,9 @@ var example = new OAuth.Client({
     secret: 'secret'
   },
   options: {
-    tokenUrl: 'http://term.ie/oauth/example/request_token.php',
-    accessUrl: 'http://term.ie/oauth/example/access_token.php',
+    baseUrl: 'http://term.ie/oauth/example',
+    tokenUrl: '/request_token.php',
+    accessUrl: '/access_token.php',
     // authorizeUrl: '',
     // authenticateUrl: '',
   }
@@ -24,7 +25,7 @@ example.getRequestToken( null, function( error, token, response ) {
     console.log( token );
     
     example.get(
-      'http://term.ie/oauth/example/echo_api.php',
+      '/echo_api.php',
       { message: 'test' },
       function() {
         console.log( arguments[1] );
