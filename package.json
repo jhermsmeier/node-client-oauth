@@ -19,7 +19,7 @@
     "node": ">=0.6"
   }
   
-  "respoitory": {
+  "repository": {
     "type": "git",
     "url": "git@github.com:jhermsmeier/node-oauth.git"
   },
