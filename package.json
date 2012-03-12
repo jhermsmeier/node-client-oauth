@@ -1,0 +1,29 @@
+{
+  
+  "name": "oauth",
+  "version": "0.0.1",
+  "description": "OAuth client library",
+  "kewords": [
+    
+  ],
+  
+  "author": {
+    "name": "Jonas Hermsmeier",
+    "email": "jhermsmeier@shortmail.com",
+    "url": "http://jhermsmeier.de"
+  }
+  
+  "dependencies": {},
+  "devDependencies": {},
+  "engine": {
+    "node": ">=0.6"
+  }
+  
+  "respoitory": {
+    "type": "git",
+    "url": "git@github.com:jhermsmeier/node-oauth.git"
+  },
+  
+  "license": "MIT"
+  
+}
