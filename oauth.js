@@ -1,7 +1,7 @@
 
 var OAuth = {
-  1.0: require( './oauth/1.0' ),
-  // 2.0: require( './oauth/2.0' )
+  1.0: require( './api/1.0' ),
+  // 2.0: require( './api/2.0' )
 }
 
 /*
