@@ -275,4 +275,6 @@ module.exports = function( options ) {
     
   }
   
+  return Client
+  
 }
