@@ -26,7 +26,10 @@ function API( options, version ) {
     options = {}
   }
   
-  if( !(this.Client = OAuth[ options.version || version || 2 ]) ) {
+  options.version = options.version || version || 2
+  this.Client     = OAuth[ options.version ]
+  
+  if( this.Client === undefined ) {
     throw new Error( 'OAuth version not implemented.' )
   }
   
@@ -42,4 +45,4 @@ API.prototype = {
   
 }
 
-module.exports = API
+module.exports = { 'API': API }
