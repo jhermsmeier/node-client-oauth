@@ -1,7 +1,7 @@
 {
   
   "name": "oauth",
-  "version": "0.0.1",
+  "version": "0.0.1-alpha",
   "description": "OAuth client library",
   "kewords": [
     
@@ -13,20 +13,22 @@
     "url": "http://jhermsmeier.de"
   },
   
+  "main": "oauth.js",
+  
+  "engine": {
+    "node": "0.6.x"
+  },
+  
   "dependencies": {},
   "devDependencies": {},
-  "engine": {
-    "node": ">=0.6"
-  },
   
   "repository": {
     "type": "git",
-    "url": "git@github.com:jhermsmeier/node-oauth.git"
+    "url": "git://github.com/jhermsmeier/node-oauth.git"
   },
+  
   "bugs": {
     "url": "https://github.com/jhermsmeier/node-oauth/issues"
   },
-  
-  "license": "MIT"
   
 }
