@@ -1,15 +1,16 @@
 {
   
-  "name": "oauth",
+  "name": "client-oauth",
   "version": "0.0.1-alpha",
   "description": "OAuth client library",
+  "license": "MIT",
   "kewords": [
     
   ],
   
   "author": {
     "name": "Jonas Hermsmeier",
-    "email": "jhermsmeier@shortmail.com",
+    "email": "jhermsmeier@googlemail.com",
     "url": "http://jhermsmeier.de"
   },
   
@@ -29,6 +30,6 @@
   
   "bugs": {
     "url": "https://github.com/jhermsmeier/node-oauth/issues"
-  },
+  }
   
 }
