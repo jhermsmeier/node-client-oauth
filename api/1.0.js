@@ -93,9 +93,9 @@ module.exports = function( options ) {
       params = this.prepareParams( method, resource, params )
       params = query.stringify( params )
       
-      var ssl = resource.protocol === 'https:'
+      var ssl   = resource.protocol === 'https:'
       var layer = ssl ? https : http
-      var body = ''
+      var body  = ''
       
       if( method !== 'POST' && method !== 'PUT' ) {
         resource.path += '?' + params
