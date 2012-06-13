@@ -1,4 +1,4 @@
-# Node.js OAuth
+# Node.js OAuth Client Library
 
 ## Usage
 
