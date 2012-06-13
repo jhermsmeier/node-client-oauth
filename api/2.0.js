@@ -6,14 +6,14 @@ var crypto = require( 'crypto' )
 
 var OAuth = {
   util: require( './util' )
-};
+}
 
 module.exports = function( options ) {
   
   // Lifetimes
-  var ACCESS_TOKEN_LIFETIME  = 3600
-  var AUTH_CODE_LIFETIME     = 30
-  var REFRESH_TOKEN_LIFETIME = 1209600
+  const ACCESS_TOKEN_LIFETIME  = 3600
+  const AUTH_CODE_LIFETIME     = 30
+  const REFRESH_TOKEN_LIFETIME = 1209600
 
   // Response types (Obtaining End-User Authorization)
   ;[
