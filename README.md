@@ -10,7 +10,6 @@ The first is, specifying everything in an options
 object. `new OAuth.API( [options] )`
 
 ```javascript
-
 var Example = new OAuth.API({
   version: 1,
   base: 'http://term.ie/oauth/example',
@@ -20,16 +19,13 @@ var Example = new OAuth.API({
     'User-Agent': 'node.js/oauth'
   }
 })
-
 ```
 
 The second, and short version is to use the form
 `new OAuth.API( [baseUrl], [version] )`:
 
 ```javascript
-
 var Example = new OAuth.API( 'http://term.ie/oauth/example', 1 )
-
 ```
 
 ### OAuth 1.0a Example
@@ -37,18 +33,15 @@ var Example = new OAuth.API( 'http://term.ie/oauth/example', 1 )
 #### Creating Clients
 
 ```javascript
-
 var Client = new Example.Client({
   key: 'key',
   secret: 'secret'
 })
-
 ```
 
 #### Example Authentication Flow
 
 ```javascript
-
 var query = require( 'querystring' )
 
 // Fetch request tokens
@@ -79,7 +72,6 @@ Client.get(
     )
   }  
 )
-
 ```
 
 ## License (MIT)
