@@ -26,7 +26,7 @@ module.exports = function( options ) {
       'User-Agent': 'node.js/oauth'
     }
   }
-
+  
   /*
    * Constructs a new Client object from
    * given credentials.
@@ -59,7 +59,7 @@ module.exports = function( options ) {
     )
     
   }
-
+  
   /**
    * Client prototype.
    * @type {Object}

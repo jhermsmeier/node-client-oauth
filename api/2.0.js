@@ -14,14 +14,14 @@ module.exports = function( options ) {
   const ACCESS_TOKEN_LIFETIME  = 3600
   const AUTH_CODE_LIFETIME     = 30
   const REFRESH_TOKEN_LIFETIME = 1209600
-
+  
   // Response types (Obtaining End-User Authorization)
   ;[
     'token',
     'code',
     'code-and-token'
   ]
-
+  
   // Response types (Obtaining an Access Token)
   ;[
     'authorization_code',
@@ -30,7 +30,7 @@ module.exports = function( options ) {
     'refresh_token',
     'none'
   ]
-
+  
   /*
    * Default options
    */
@@ -38,7 +38,7 @@ module.exports = function( options ) {
     base: '',
     token_name: 'oauth_token'
   }
-
+  
   /*
    * Constructs a new Client object from
    * given credentials.
@@ -70,7 +70,11 @@ module.exports = function( options ) {
     )
     
   }
-
+  
+  /**
+   * Client prototype.
+   * @type {Object}
+   */
   Client.prototype = {
     
     /**
