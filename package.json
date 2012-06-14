@@ -25,11 +25,11 @@
   
   "repository": {
     "type": "git",
-    "url": "git://github.com/jhermsmeier/node-oauth.git"
+    "url": "git://github.com/jhermsmeier/node-client-oauth.git"
   },
   
   "bugs": {
-    "url": "https://github.com/jhermsmeier/node-oauth/issues"
+    "url": "https://github.com/jhermsmeier/node-client-oauth/issues"
   }
   
 }
