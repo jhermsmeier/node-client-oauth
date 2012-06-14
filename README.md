@@ -1,5 +1,9 @@
 # Node.js OAuth Client Library
 
+## Install
+
+Install using `npm install client-oauth`.
+
 ## Usage
 
 First of all, you'll need to create an API object
