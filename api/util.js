@@ -12,6 +12,8 @@ module.exports = {
    */
   getNonce: function( length ) {
     
+    length = length || 32
+    
     var chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
     var nonce = ''
     
