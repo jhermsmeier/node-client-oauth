@@ -101,6 +101,9 @@ module.exports = function( options ) {
         body = params
       }
       
+      resource.method  = method
+      resource.headers = this.options.headers
+      
       var request = layer.request( resource, function( response ) {
         
         var data = ''
