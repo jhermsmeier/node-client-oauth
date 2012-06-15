@@ -1,7 +1,7 @@
 
 var OAuth = {
   1.0: require( './api/1.0' ),
-  2.0: require( './api/2.0' )
+  // 2.0: require( './api/2.0' )
 }
 
 /*
@@ -26,7 +26,7 @@ function API( options, version ) {
     options = {}
   }
   
-  options.version = options.version || version || 2
+  options.version = options.version || version || 1
   this.Client     = OAuth[ options.version ]
   
   if( this.Client === undefined ) {
