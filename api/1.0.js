@@ -85,13 +85,11 @@ module.exports = function( options ) {
      */
     request: function( method, resource, params, callback ) {
       
-      method = method.toUpperCase()
-      
-      resource = this.options.base + resource
-      resource = url.parse( resource )
-      
-      params = this.prepareParams( method, resource, params )
-      params = query.stringify( params )
+      method   = method.toUpperCase()
+      resource = url.parse( this.options.base + resource )
+      params   = query.stringify(
+        this.prepareParams( method, resource, params )
+      )
       
       var ssl   = resource.protocol === 'https:'
       var layer = ssl ? https : http
