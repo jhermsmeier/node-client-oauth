@@ -10,6 +10,8 @@ var OAuth = {
 
 function Consumer( options ) {
   
+  throw new Error( 'Not implemented' )
+  
   if( !(this instanceof Consumer) ) {
     return new Consumer( options )
   }
