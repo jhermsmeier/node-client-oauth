@@ -9,6 +9,10 @@ var OAuth = {
   util: require( './util' )
 }
 
+/**
+ * Consumer constructor.
+ * @param {Object} options
+ */
 function Consumer( options ) {
   
   if( !(this instanceof Consumer) ) {
@@ -21,8 +25,16 @@ function Consumer( options ) {
   
 }
 
+/**
+ * Consumer client (user).
+ * @type {Function}
+ */
 Consumer.Client = require( './1.0-client' )
 
+/**
+ * Consumer default options.
+ * @type {Object}
+ */
 Consumer.defaults = {
   base: '',
   key: '',
@@ -156,10 +168,10 @@ Consumer.prototype = {
    * `method`, `url` and `data`.
    * 
    * @api public
-   * @param {Object} client
-   * @param {String} method
+   * @param {Object}        client
+   * @param {String}        method
    * @param {String|Object} url
-   * @param {Object} data
+   * @param {Object}        data
    */
   sign: function( client, method, url, data ) {
     
@@ -200,6 +212,11 @@ Consumer.prototype = {
     
   },
   
+  /**
+   * Configures consumer instance with given `options`.
+   * @param  {Object} options
+   * @return {Undefined} 
+   */
   configure: function( options ) {
     
     var defaults = this.options || Consumer.defaults
