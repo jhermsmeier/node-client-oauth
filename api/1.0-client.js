@@ -1,6 +1,11 @@
 
 module.exports = function( consumer ) {
   
+  /**
+   * Client constructor.
+   * @param {String} key 
+   * @param {String} secret 
+   */
   function Client( key, secret ) {
     
     if( !(this instanceof Client) ) {
@@ -12,6 +17,10 @@ module.exports = function( consumer ) {
     
   }
   
+  /**
+   * Client prototype.
+   * @type {Object}
+   */
   Client.prototype = {
     
     request: function( method, url, data, callback ) {

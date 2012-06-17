@@ -47,6 +47,10 @@ Consumer.defaults = {
   }
 }
 
+/**
+ * Consumer prototype.
+ * @type {Object}
+ */
 Consumer.prototype = {
   
   /**
