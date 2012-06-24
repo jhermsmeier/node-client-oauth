@@ -8,85 +8,37 @@ var OAuth = {
   util: require( './util' )
 }
 
-module.exports = function( options ) {
+function Consumer( options ) {
   
-  // Lifetimes
-  const ACCESS_TOKEN_LIFETIME  = 3600
-  const AUTH_CODE_LIFETIME     = 30
-  const REFRESH_TOKEN_LIFETIME = 1209600
+  throw new Error( 'Not implemented' )
   
-  // Response types (Obtaining End-User Authorization)
-  ;[
-    'token',
-    'code',
-    'code-and-token'
-  ]
-  
-  // Response types (Obtaining an Access Token)
-  ;[
-    'authorization_code',
-    'password',
-    'assertion',
-    'refresh_token',
-    'none'
-  ]
-  
-  /*
-   * Default options
-   */
-  var defaults = {
-    base: '',
-    token_name: 'oauth_token'
+  if( !(this instanceof Consumer) ) {
+    return new Consumer( options )
   }
   
-  /*
-   * Constructs a new Client object from
-   * given credentials.
-   * 
-   * @api public
-   * @param {Object} consumer
-   * @param {Object} token
-   * @return {Object}
-   */
-  function Client( consumer ) {
-    
-    if( !(this instanceof Client) ) {
-      return new Client( consumer )
-    }
-    
-    if( !consumer.id || !consumer.secret ) {
-      throw new Error( 'Consumer credentials required.' )
-    }
-    
-    if( options != null ) {
-      delete options.version
-    }
-    
-    this.consumer = consumer
-    this.options  = OAuth.util.extend(
-      true,
-      defaults,
-      options
-    )
-    
-  }
-  
-  /**
-   * Client prototype.
-   * @type {Object}
-   */
-  Client.prototype = {
-    
-    /**
-     * OAuth protocol version.
-     * @type {Number}
-     */
-    version: 2.0,
-    
-    
-    
-  }
-  
-  return Client
+  this.configure( options )
   
 }
+
+Consumer.defaults = {
+  id: '',
+  secret: '',
+  token_name: 'oauth_token',
+  headers: {
+    'Accept': '*/*',
+    'Connection': 'Close',
+    'User-Agent': 'node.js/client-oauth'
+  }
+}
+
+Consumer.prototype = {
+  
+  /**
+   * OAuth protocol version.
+   * @type {Number}
+   */
+  version: 2.0,
+  
+}
+
+module.exports = Consumer
