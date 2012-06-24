@@ -1,79 +1,58 @@
 # Node.js OAuth Client Library
 
-## Install
+## Install via [npm](http://npmjs.org)
 
-Install using `npm install client-oauth`.
+```
+npm install client-oauth
+```
 
-## Usage
+## OAuth 1.0a
 
-First of all, you'll need to create an API object
-to create clients from that API.
-
-There are two ways to do this.
-The first is, specifying everything in an options
-object. `new OAuth.API( [options] )`
+### Usage
 
 ```javascript
-var Example = new OAuth.API({
-  version: 1,
+var example = new OAuth[1.0]({
   base: 'http://term.ie/oauth/example',
-  signature_method: 'PLAINTEXT',
-  headers: {
-    'Connection': 'Close',
-    'User-Agent': 'node.js/oauth'
-  }
-})
-```
-
-The second, and short version is to use the form
-`new OAuth.API( [baseUrl], [version] )`:
-
-```javascript
-var Example = new OAuth.API( 'http://term.ie/oauth/example', 1 )
-```
-
-### OAuth 1.0a Example
-
-#### Creating Clients
-
-```javascript
-var Client = new Example.Client({
   key: 'key',
   secret: 'secret'
 })
 ```
 
-#### Example Authentication Flow
+Possible options:
 
 ```javascript
-var query = require( 'querystring' )
+{
+  // API endpoint base URL
+  base: '',
+  // Consumer token
+  key: '',
+  // Consumer secret
+  secret: '',
+  // OAuth signature method
+  signature_method: 'HMAC-SHA1',
+  // HTTP request headers
+  headers: {
+    'Accept': '*/*',
+    'Connection': 'Close',
+    'User-Agent': 'node.js/client-oauth'
+  }
+}
+```
 
-// Fetch request tokens
-Client.get(
-  '/request_token.php',
-  {},
+```javascript
+var user = new example.Client()
+```
+
+```javascript
+user.get(
+  '/request_token.php', null,
   function( error, data, response ) {
-    // Parse incoming data
-    data = query.parse( data )
-    // Store temporary request tokens
-    Client.token = {
-      key: data.oauth_token,
-      secret: data.oauth_token_secret
+    if( response && response.statusCode ) {
+      console.log( response.statusCode )
+      console.log( data )
+    } else {
+      console.log( error )
     }
-    // Fetch access tokens with request tokens
-    Client.get(
-      '/access_token.php',
-      {},
-      function( error, data, response ) {
-        // Again, parse incoming data
-        data = query.parse( data )
-        // Store the final access tokens
-        Client.token = {
-          key: data.oauth_token,
-          secret: data.oauth_token_secret
-        }
-      }
-    )
-  }  
+  }
 )
 ```
