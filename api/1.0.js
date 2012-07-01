@@ -223,7 +223,7 @@ Consumer.prototype = {
    */
   configure: function( options ) {
     
-    var defaults = this.options || Consumer.defaults
+    var defaults = Consumer.defaults
     
     for( var i in defaults ) {
       if( defaults.hasOwnProperty( i ) ) {
