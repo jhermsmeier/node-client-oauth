@@ -17,7 +17,7 @@
   "main": "oauth.js",
   
   "engine": {
-    "node": "0.6.x"
+    "node": "*"
   },
   
   "dependencies": {},
