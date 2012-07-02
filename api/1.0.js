@@ -55,9 +55,10 @@ Consumer.prototype = {
   
   /**
    * OAuth protocol version.
-   * @type {Number}
+   * @type {String} Some clients require the 1.0 to be fully written
+   * out and if it is a number, it gets passed as 1
    */
-  version: 1.0,
+  version: '1.0',
   
   /*
    * Performs a HTTP request against `url`
@@ -147,12 +148,22 @@ Consumer.prototype = {
       'oauth_consumer_key':     this.key
     }
     
+    // Loop through and add all defaults to the data object
+    // only add it if the the key doens't exist
     for( var i in defaults ) {
-      if( defaults.hasOwnProperty(i) ) {
+      if( !data.hasOwnProperty(i) && defaults.hasOwnProperty(i) ) {
         data[i] = defaults[i]
       }
     }
-    
+
+    // Delete any null values from the data object
+    // This allows for removing default fields (such as oauth_token)
+    for( var i in data ) {
+      if(data[i] == null) {
+        delete data[i];
+      }
+    }
+
     var keys = Object.keys( data ).sort()
     var key, params = {}
     
