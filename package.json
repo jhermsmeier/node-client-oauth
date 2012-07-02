@@ -1,7 +1,7 @@
 {
   
   "name": "client-oauth",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "OAuth client library",
   "license": "MIT",
   "kewords": [
