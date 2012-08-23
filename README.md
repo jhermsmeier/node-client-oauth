@@ -1,3 +1,4 @@
+[![build status](https://secure.travis-ci.org/jhermsmeier/node-client-oauth.png)](http://travis-ci.org/jhermsmeier/node-client-oauth)
 # Node.js OAuth Client Library
 
 ## Install via [npm](http://npmjs.org)
