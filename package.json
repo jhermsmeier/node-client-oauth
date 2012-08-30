@@ -5,7 +5,7 @@
   "description": "OAuth client library",
   "license": "MIT",
   "kewords": [
-    
+    "oauth", "oauth2"
   ],
   
   "author": {
