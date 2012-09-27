@@ -137,7 +137,7 @@ Consumer.prototype = {
    */
   prepareParams: function( client, method, url, data ) {
     
-    data = data || Object.create( null )
+    data = data || {}
     
     var defaults = {
       'oauth_timestamp':        OAuth.util.getTime(),
