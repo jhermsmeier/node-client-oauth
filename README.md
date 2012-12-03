@@ -1,5 +1,5 @@
-[![build status](https://secure.travis-ci.org/jhermsmeier/node-client-oauth.png)](http://travis-ci.org/jhermsmeier/node-client-oauth)
-# Node.js OAuth Client Library
+
+# Node.js OAuth Client Library [![build status](https://secure.travis-ci.org/jhermsmeier/node-client-oauth.png)](http://travis-ci.org/jhermsmeier/node-client-oauth)
 
 ## Install via [npm](http://npmjs.org)
 
@@ -13,7 +13,7 @@ npm install client-oauth
 
 ```javascript
 var example = new OAuth[1.0]({
-  base: 'http://term.ie/oauth/example',
+  baseURL: 'http://term.ie/oauth/example',
   key: 'key',
   secret: 'secret'
 })
@@ -24,7 +24,7 @@ Possible options:
 ```javascript
 {
   // API endpoint base URL
-  base: '',
+  baseURL: '',
   // Consumer token
   key: '',
   // Consumer secret
