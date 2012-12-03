@@ -5,50 +5,47 @@ var https  = require( 'https' )
 var crypto = require( 'crypto' )
 var URL    = require( 'url' )
 
-var OAuth = {
-  util: require( './util' )
-}
+var OAuth = require( './util' )
 
 /**
- * Consumer constructor.
+ * Consumer constructor
  * @param {Object} options
  */
 function Consumer( options ) {
   
-  if( !(this instanceof Consumer) ) {
+  if( !(this instanceof Consumer) )
     return new Consumer( options )
+  
+  for( var k in Consumer.defaults ) {
+    this[k] = options[k] || Consumer.defaults[k]
   }
-  
-  this.configure( options )
-  
-  this.Client = Consumer.Client( this )
   
 }
 
 /**
- * Consumer client (user).
+ * Consumer client (user)
  * @type {Function}
  */
 Consumer.Client = require( './1.0-client' )
 
 /**
- * Consumer default options.
+ * Consumer default options
  * @type {Object}
  */
 Consumer.defaults = {
-  base: '',
+  baseURL: '',
   key: '',
   secret: '',
   signature_method: 'HMAC-SHA1',
   headers: {
-    'Accept': '*/*',
+    'Accept':     '*/*',
     'Connection': 'Close',
-    'User-Agent': 'node.js/client-oauth'
+    'User-Agent': 'npmjs.org/client-oauth',
   }
 }
 
 /**
- * Consumer prototype.
+ * Consumer prototype
  * @type {Object}
  */
 Consumer.prototype = {
@@ -60,7 +57,7 @@ Consumer.prototype = {
    */
   version: '1.0',
   
-  /*
+  /**
    * Performs a HTTP request against `url`
    * with given `method` and `data`. On completion or
    * error `callback` is called with `error`, `data` and `response`.
@@ -74,175 +71,129 @@ Consumer.prototype = {
    */
   request: function( client, method, url, data, callback ) {
     
-    method   = ( method + '' ).toUpperCase()
-    url      = URL.parse( this.base + url )
+    method   = method.toUpperCase()
+    url      = URL.parse( this.baseURL + url )
     callback = callback || function() {}
-    data     = query.stringify(
-      this.prepareParams( client, method, url, data )
-    )
-    
-    var body  = ''
-    var layer = url.protocol === 'https:'
-      ? https
-      : http
+    data     = query.stringify( data )
+    protocol = url.protocol === 'https:'
+      ? https : http
     
     if( method !== 'POST' && method !== 'PUT' ) {
-      url.path += '?' + data
-    } else {
-      body = data
+      if( data && data.length > 0 ) {
+        url.path += '?' + data
+        data = null
+      }
     }
     
-    url.method  = method
-    url.headers = this.headers
+    url.method = method
+    url.headers = {
+      'Authorization': this.auth( client, method, url )
+    }
     
-    var request = layer.request( url, function( response ) {
+    for( var k in this.headers ) {
+      url.headers[k] = this.headers[k]
+    }
+    
+    var request = protocol.request( url, function( response ) {
       
       var buffer = ''
       var done = false
       
       response.setEncoding( 'utf8' )
-      
-      response.on( 'data', function( chunk ) {
-        buffer += chunk
-      })
-      
-      response.on( 'end', function() {
-        done = true
-        callback( null, buffer, response )
-      })
-      
-      response.on( 'close', function() {
-        if( !done ) { callback( error, buffer, response ) }
-      })
+      response
+        .on( 'data', function( chunk ) {
+          buffer += chunk
+        })
+        .on( 'close', function() {
+          if( !done ) callback( true, buffer, response )
+        })
+        .on( 'end', function() {
+          done = true
+          callback( null, buffer, response )
+        })
       
     })
     
-    request.on( 'error', function( error ) {
-      callback( error )
-    })
-    
-    request.end( body, 'utf8' )
-    
-  },
-  
-  /*
-   * Prepares given `data` (Adds standard OAuth parameters,
-   * sorts them and finally adds the signature).
-   * 
-   * @api public
-   * @param {Object} client
-   * @param {String} method
-   * @param {String|Object} url
-   * @param {Object} data
-   */
-  prepareParams: function( client, method, url, data ) {
-    
-    data = data || {}
-    
-    var defaults = {
-      'oauth_timestamp':        OAuth.util.getTime(),
-      'oauth_version':          this.version,
-      'oauth_token':            client.key,
-      'oauth_nonce':            OAuth.util.getNonce(),
-      'oauth_signature_method': this.signature_method,
-      'oauth_consumer_key':     this.key
-    }
-    
-    // Loop through and add all defaults to the data object
-    // only add it if the the key doens't exist
-    for( var i in defaults ) {
-      if( !data.hasOwnProperty(i) && defaults.hasOwnProperty(i) ) {
-        data[i] = defaults[i]
-      }
-    }
-
-    // Delete any null values from the data object
-    // This allows for removing default fields (such as oauth_token)
-    for( var i in data ) {
-      if(data[i] == null) {
-        delete data[i];
-      }
-    }
-
-    var keys = Object.keys( data ).sort()
-    var key, params = {}
-    
-    for( var k in keys ) {
-      key = keys[k]
-      params[ key ] = data[ key ]
-    }
-    
-    params['oauth_signature'] = this.sign( client, method, url, params )
-    
-    return params
-    
-  },
-  
-  /*
-   * Creates the OAuth signature from
-   * `method`, `url` and `data`.
-   * 
-   * @api public
-   * @param {Object}        client
-   * @param {String}        method
-   * @param {String|Object} url
-   * @param {Object}        data
-   */
-  sign: function( client, method, url, data ) {
-    
-    url = URL.parse( url )
-    url = url.protocol + '//'
-        + url.host
-        + url.path
-    url = OAuth.util.encodeComponent( url )
-    
-    // Remove `oauth_signature` if present
-    // ref: spec: 9.1.1 ("the oauth_signature parameter MUST be excluded.")
-    if( data.oauth_signature ) {
-      delete data.oauth_signature
-    }
-    
-    data = query.stringify( data )
-    data = OAuth.util.encodeComponent( data )
-    
-    var base = [ method, url, data ].join( '&' )
-    var key  = [ this.secret, client.secret ].join( '&' )
-    var hash = ''
-    
-    switch( this.signature_method ) {
-      case 'HMAC-SHA1':
-        hash = crypto.createHmac( 'sha1', key )
-                     .update( base )
-                     .digest( 'base64' )
-        break;
-      case 'PLAINTEXT':
-        hash = OAuth.util.encodeComponent( key )
-        break;
-      default:
-        throw new Error( 'Signature method not implemented.' )
-        break;
-    }
-    
-    return hash
+    request
+      .on( 'error', function( error ) {
+        callback( error )
+      })
+      .end( data, 'utf8' )
     
   },
   
   /**
-   * Configures consumer instance with given `options`.
-   * @param  {Object} options
-   * @return {Undefined} 
+   * Creates the OAuth authorization header
+   * @param  {Object} client
+   * @param  {String} method
+   * @param  {String} url
+   * @return {String}
    */
-  configure: function( options ) {
+  auth: function( client, method, url ) {
     
-    var defaults = Consumer.defaults
+    var header = 'OAuth '
+    var params = [
+      [ 'oauth_consumer_key',     this.key ],
+      [ 'oauth_nonce',            OAuth.generateNonce() ],
+      [ 'oauth_signature_method', this.signature_method ],
+      [ 'oauth_timestamp',        OAuth.getTime() ],
+      [ 'oauth_token',            client.key ],
+      [ 'oauth_version',          this.version ],
+    ]
     
-    for( var i in defaults ) {
-      if( defaults.hasOwnProperty( i ) ) {
-        this[i] = options[i] || defaults[i]
-      }
+    params.push( this.sign( client, method, url, params ) )
+    params.sort( function( a, b ) {
+      return a[0].localeCompare( b[0] )
+    })
+    
+    return header + params.join( ', ' )
+  },
+  
+  /**
+   * Creates the OAuth signature
+   * @param  {Object} client
+   * @param  {String} method
+   * @param  {String} url
+   * @param  {Array}  params
+   * @return {Array}
+   */
+  sign: function( client, method, url, params ) {
+    
+    var hash, key, base = {}
+    
+    url = URL.parse( url )
+    url = [ url.protocol, '//', url.host, url.path ].join( '' )
+    url = OAuth.encodeComponent( url )
+    
+    params.sort( function( a, b ) {
+      return a[0].localeCompare( b[0] )
+    })
+    
+    for( var k in params ) {
+      base[ params[k][0] ] = params[k][1]
     }
     
-    this.signature_method = this.signature_method.toUpperCase()
+    base = query.stringify( base )
+    base = OAuth.encodeComponent( base )
+    
+    base = [ method, url, base ].join( '&' )
+    key  = [ this.secret, client.secret ].join( '&' )
+    
+    switch( this.signature_method ) {
+      case 'HMAC-SHA1':
+        hash = crypto.createHmac( 'sha1', key )
+        hash = hash.update( base )
+        hash = hash.digest( 'base64' )
+        break
+      case 'PLAINTEXT':
+        hash = OAuth.encodeComponent( key )
+        break
+      default:
+        throw new Error( 'Signature method not implemented.' )
+        break
+    }
+    
+    return [ 'oauth_signature', hash ]
     
   }
   
