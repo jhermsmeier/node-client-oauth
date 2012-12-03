@@ -147,6 +147,7 @@ Consumer.prototype = {
     })
     
     return header + params.join( ', ' )
+    
   },
   
   /**
