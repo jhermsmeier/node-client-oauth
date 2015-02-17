@@ -13,10 +13,12 @@
     "email": "jhermsmeier@gmail.com",
     "url": "https://jhermsmeier.de/"
   },
-  "dependencies": {},
+  "dependencies": {
+    "mocha": "~2.1.0"
+  },
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha test/**/*.js"
   },
   "homepage": "https://github.com/jhermsmeier/node-client-oauth",
   "repository": {
