@@ -4,7 +4,7 @@
 
 ```javascript
 var example = new OAuth[1.0]({
-  baseURL: 'http://term.ie/oauth/example',
+  baseUrl: 'http://term.ie/oauth/example',
   key: 'key',
   secret: 'secret'
 })
@@ -15,18 +15,18 @@ Possible options:
 ```javascript
 {
   // API endpoint base URL
-  baseURL: '',
+  baseUrl: '',
   // Consumer token
   key: '',
   // Consumer secret
   secret: '',
   // OAuth signature method
-  signature_method: 'HMAC-SHA1',
+  signatureMethod: 'HMAC-SHA1',
   // HTTP request headers
   headers: {
     'Accept': '*/*',
     'Connection': 'Close',
-    'User-Agent': 'node.js/client-oauth'
+    'User-Agent': 'node/client-oauth'
   }
 }
 ```
