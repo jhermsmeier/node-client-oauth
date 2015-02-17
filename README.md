@@ -1,59 +1,11 @@
+# Node.js OAuth Client Library
+[![npm](http://img.shields.io/npm/v/node-client-oauth.svg?style=flat-square)](https://npmjs.com/node-client-oauth)
+[![npm](http://img.shields.io/npm/l/node-client-oauth.svg?style=flat-square)](https://npmjs.com/node-client-oauth)
+[![npm downloads](http://img.shields.io/npm/dm/node-client-oauth.svg?style=flat-square)](https://npmjs.com/node-client-oauth)
+[![build status](http://img.shields.io/travis/jhermsmeier/node-client-oauth.svg?style=flat-square)](https://travis-ci.org/jhermsmeier/node-client-oauth)
 
-# Node.js OAuth Client Library [![build status](https://secure.travis-ci.org/jhermsmeier/node-client-oauth.png)](http://travis-ci.org/jhermsmeier/node-client-oauth)
+## Install via [npm](https://npmjs.com)
 
-## Install via [npm](http://npmjs.org)
-
-```
-npm install client-oauth
-```
-
-## OAuth 1.0a
-
-### Usage
-
-```javascript
-var example = new OAuth[1.0]({
-  baseURL: 'http://term.ie/oauth/example',
-  key: 'key',
-  secret: 'secret'
-})
-```
-
-Possible options:
-
-```javascript
-{
-  // API endpoint base URL
-  baseURL: '',
-  // Consumer token
-  key: '',
-  // Consumer secret
-  secret: '',
-  // OAuth signature method
-  signature_method: 'HMAC-SHA1',
-  // HTTP request headers
-  headers: {
-    'Accept': '*/*',
-    'Connection': 'Close',
-    'User-Agent': 'node.js/client-oauth'
-  }
-}
-```
-
-```javascript
-var user = new example.Client()
-```
-
-```javascript
-user.get(
-  '/request_token.php', null,
-  function( error, data, response ) {
-    if( response && response.statusCode ) {
-      console.log( response.statusCode )
-      console.log( data )
-    } else {
-      console.log( error )
-    }
-  }
-)
+```sh
+$ npm install node-client-oauth
 ```
